@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,7 +62,20 @@ public class AccountActionServlet extends HttpServlet {
                     }
                 }
                 
-                request.getSession().setAttribute("path", card);    // update the session object
+                if(action.equalsIgnoreCase("history")) {
+                    URL = "/History.jsp";
+                    
+                    // TODO CREATE HISTORY.JSP
+                }
+                
+                request.getSession().setAttribute("card", card);    // update the session object "card" was "path"
+                
+                Cookie acct = new Cookie("acct", String.valueOf(card.getAccountId()));
+                
+                acct.setMaxAge(60 * 2); // 60 seconds times 2
+                acct.setPath("/");      // specify where the cookie is availalbe, we've selected root
+                response.addCookie(acct);   // goes back to the browser which manages the cookie
+                
             } // end else
 
         } catch (Exception e) {

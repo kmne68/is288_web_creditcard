@@ -1,13 +1,19 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<script src="ajax.js" type="text/javascript"></script>
+<script src="history.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript">
-        function pageAction(action)
-        {
-            document.card.actiontype.value=action;
+    function pageAction(action)
+    {
+        document.card.actiontype.value = action;
+        if(ajax && action === 'history') {
+            ajax.open('get', 'AccountAction?actiontype=history');
+            ajax.send(null);
+        } else {
             document.card.submit();
         }
-    </script>
+    }
+</script>
 <html>
 
     <head>
@@ -18,13 +24,13 @@
     <body bgcolor="tan">
         <form action="AccountAction" name="card" id="card" method="post">
             <table border="0">
-            <tr>
-            <td>Account ID:</td>
-            <td><input type="text" name="account" id="account"
-                       value="${card.accountID}"/></td>
-            
-            <td><input type="submit" value="New Account" onclick="pageAction('new')"></td>
-            <td><input type="submit" value="Existing" onclick="pageAction('existing')"></td>
+                <tr>
+                    <td>Account ID:</td>
+                    <td><input type="text" name="account" id="account"
+                               value="${empty card.accountId ? cookie.acct.value : card.accountId}"/></td>
+
+                    <td><input type="submit" value="New Account" onclick="pageAction('new')"></td>
+                    <td><input type="submit" value="Existing" onclick="pageAction('existing')"></td>
             </table>
             <hr/>         
             <table>
@@ -76,7 +82,25 @@
             </table>
             <input type="hidden" name="actiontype" id="actiontype" value="">
         </form>
-                <br>
-                ${msg}
+        <br>
+        ${msg}
+        <br>
+        
+        
+        <div id="results"></div>
+        
+        
+        <br>
+        <!-- Display cookies on the bottom of the page -->
+        <%
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie c : cookies) {
+        %>
+        <%= c.getName()%> = <%= c.getValue()%><br>
+        <%
+                }
+            }
+        %>
     </body>
 </html>
