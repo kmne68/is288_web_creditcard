@@ -117,7 +117,7 @@ public class CreditCard {
                     cerrmsg = writeLog(cmsg);
                 }
              } else {
-                cmsg = "Credit Increse of " + r + " declined.";
+                cmsg = "Credit Increase of " + r + " declined.";
                 cerrmsg = writeLog(cmsg);
             }
         }

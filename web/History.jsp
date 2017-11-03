@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Account Log Entries for: ${card.accountId}</h1>
+        <p>
     </body>
 </html>

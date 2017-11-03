@@ -39,25 +39,25 @@
                     <td><input type="text" name="cAmt" id="cAmt" size="15"></td>
                     <td width="50" align="right">Desc:</td>
                     <td><input type="text" name="cDesc" id="cDesc" size="40"></td>
-                    <td><input type="button" name="charge" id="charge" value="Post Charge" onclick="pageAction('charge')"</td>
+                    <td><input type="button" name="charge" id="charge" value="Post Charge" onclick="pageAction('charge')"></td>
                 </tr>
                 <tr>
                     <td>Payment Amt:</td>
                     <td><input type="text" name="pAmt" id="pAmt" size="15"></td>
                     <td></td>
-                    <td><input type="button" name="payment" id="payment" value="Post Payment" onclick="pageAction('payment')"</td>
+                    <td><input type="button" name="payment" id="payment" value="Post Payment" onclick="pageAction('payment')"></td>
                 </tr>
                 <tr>
                     <td>Credit Increase:</td>
                     <td><input type="text" name="cIncrease" id="cIncrease" size="15"></td>
                     <td></td>
-                    <td><input type="button" name="Increase" id="Increase" value="Credit Increae" onclick="pageAction('increase')"</td>
+                    <td><input type="button" name="Increase" id="Increase" value="Credit Increase" onclick="pageAction('increase')"></td>
                 </tr>
                 <tr>
                     <td>Interest Rate:</td>
                     <td><input type="text" name="iRate" id="iRate" size="15"></td>
                     <td></td>
-                    <td><input type="button" name="interest" id="interest" value="Interest Charge" onclick="pageAction('interest')"</td>
+                    <td><input type="button" name="interest" id="interest" value="Interest Charge" onclick="pageAction('interest')"></td>
                     <td><input type="button" name="history" id="history" value="Display History" onclick="pageAction('history')">
                 </tr>
             </table><br>
