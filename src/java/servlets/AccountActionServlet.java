@@ -8,6 +8,7 @@ package servlets;
 import business.CreditCard;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,6 +31,7 @@ public class AccountActionServlet extends HttpServlet {
         String URL = "/CardTrans.jsp";
         String msg = "";
         String emsg = "";
+        ArrayList<String> log;
         double charge = 0;
 
         CreditCard card;
@@ -120,6 +122,16 @@ public class AccountActionServlet extends HttpServlet {
             if (action.equalsIgnoreCase("history")) {
                 URL = "/History.jsp";
 
+                try {
+                //    path = getServletContext().getRealPath("/build/web/WEB-INF/CCL" + String.valueOf(card.getAccountId() + ".txt") );
+                    log = card.getCreditHistory();
+                    
+                    request.setAttribute("log", log);
+                } catch (Exception e) {
+                    emsg = "History processing error: " + e;
+                    URL = "/CardTrans.jsp";
+                    request.setAttribute("emsg", emsg);
+                }
                 // TODO CREATE HISTORY.JSP
             }
 
