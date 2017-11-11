@@ -29,6 +29,9 @@ public class AccountActionServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         int acctno = 0;
+       // double creditLimit = 0;
+        double balanceDue = 0;
+        double availableCredit = 0;
         String URL = "/CardTrans.jsp";
         String msg = "";
         String emsg = "";
@@ -57,17 +60,22 @@ public class AccountActionServlet extends HttpServlet {
                         msg += card.getActionMsg() + "TEST ACTION MESSAGE<br>";
                     }
                 }
-                
+
                 if (card == null && (action.equalsIgnoreCase("existing"))) {
-                    msg += "i'm a message";
+                    // add try/catch
+                        acctno = Integer.parseInt(request.getParameter("account"));
+                    card = new CreditCard(acctno, path);
+                //    msg += "i'm a message";
+                    double creditLimit = card.getCreditLimit();
                     try {
-                        request.setAttribute("msg", msg);
-                        request.setAttribute("test", "<br>it worked");
+                        request.setAttribute("climit", creditLimit);
+                        request.setAttribute("msg", acctno);
+                        request.setAttribute("test", "<br>" + acctno);
                     } catch (Exception e) {
-                        
+
                     }
                 }
-                
+
                 //    request.getSession().setAttribute("card", card);
                 if (card != null && (action.equalsIgnoreCase("charge"))) {
                     try {
