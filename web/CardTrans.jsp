@@ -83,7 +83,8 @@
             <input type="hidden" name="actiontype" id="actiontype" value="">
         </form>
         <br>
-        ${msg}
+       <!-- ${msg} -->
+        ${test}
         <br>
         
         
