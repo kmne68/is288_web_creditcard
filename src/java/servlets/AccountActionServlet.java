@@ -29,7 +29,7 @@ public class AccountActionServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         int acctno = 0;
-       // double creditLimit = 0;
+        // double creditLimit = 0;
         double balanceDue = 0;
         double availableCredit = 0;
         String URL = "/CardTrans.jsp";
@@ -61,18 +61,25 @@ public class AccountActionServlet extends HttpServlet {
                     }
                 }
 
+                
                 if (card == null && (action.equalsIgnoreCase("existing"))) {
-                    // add try/catch
+
+                    try {
+                        // add try/catch
                         acctno = Integer.parseInt(request.getParameter("account"));
-                    card = new CreditCard(acctno, path);
-                //    msg += "i'm a message";
+                        card = new CreditCard(acctno, path);
+                    } catch (Exception e) {
+                        emsg += card.getErrorMessage() + " " + e;
+                    //    request.setAttribute("msg", msg);
+                    }
                     double creditLimit = card.getCreditLimit();
                     try {
-                        request.setAttribute("climit", creditLimit);
+               /*         request.setAttribute("climit", creditLimit);
                         request.setAttribute("msg", acctno);
                         request.setAttribute("test", "<br>" + acctno);
-                    } catch (Exception e) {
-
+               */     } catch (Exception e) {
+                        msg += "Card data unavailable " + e;
+                    //    request.setAttribute("msg", msg);
                     }
                 }
 
@@ -85,7 +92,7 @@ public class AccountActionServlet extends HttpServlet {
                             emsg += "Charge must be a positive value<br>";
                         } else {
                             card.setCharge(charge, msg);
-                            //        msg += "Your charge has been registered.";
+                            msg += "-- debit recorded.";
                         }
 
                     } catch (Exception e) {
@@ -96,7 +103,7 @@ public class AccountActionServlet extends HttpServlet {
                 if (card != null && (action.equalsIgnoreCase("payment"))) {
                     try {
                         double payment = Double.parseDouble(request.getParameter("pAmt"));
-                        if (payment <= 0 && card.getOutstandingBal() == 0) {
+                        if (payment <= 0 || card.getOutstandingBal() == 0) {
                             emsg += "Payment must be a positive value and cannot exceed your outstanding balance<br>";
                         } else {
                             card.setPayment(payment);
@@ -123,6 +130,7 @@ public class AccountActionServlet extends HttpServlet {
                     }
                 }
 
+                
                 if (card != null && (action.equalsIgnoreCase("interest"))) {
                     try {
                         double rate = Double.parseDouble(request.getParameter("iRate"));
@@ -136,6 +144,7 @@ public class AccountActionServlet extends HttpServlet {
                         emsg += "Illegal  value.<br>";
                     }
                 }
+                
 
                 if (card != null && (action.equalsIgnoreCase("history"))) {
                     URL = "/History.jsp";
@@ -148,7 +157,7 @@ public class AccountActionServlet extends HttpServlet {
                     } catch (Exception e) {
                         emsg = "History processing error: " + e;
                         URL = "/CardTrans.jsp";
-                        request.setAttribute("emsg", emsg);
+                     //   request.setAttribute("emsg", emsg);
                     }
                 }
 
@@ -166,6 +175,7 @@ public class AccountActionServlet extends HttpServlet {
         }
 
         request.setAttribute("msg", msg);
+        request.setAttribute("emsg", emsg);
         RequestDispatcher disp = getServletContext().getRequestDispatcher(URL);
         disp.forward(request, response);
 

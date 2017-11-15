@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <script src="ajax.js" type="text/javascript"></script>
 <script src="history.js" type="text/javascript"></script>
@@ -64,6 +65,7 @@
             <br>
             <hr><br>
             <table border="1">
+                <fmt:formatNumber value="${annuity.rate}" type="percent" maxIntegerDigits="3"/>
                 <tr>
                     <td>Credit Limit:</td>
                     <td><input type="text" name="climit" id="climit" readonly
@@ -83,7 +85,8 @@
             <input type="hidden" name="actiontype" id="actiontype" value="">
         </form>
         <br>
-       <!-- ${msg} -->
+        ${msg}
+        ${emsg}
         ${test}
         <br>
         
